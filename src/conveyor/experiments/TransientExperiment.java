@@ -27,10 +27,9 @@ public final class TransientExperiment {
                 final int rr = run;
                 Model m = new Model(cfg.withSeed(run));
                 m.run((t, model) -> {
-                    double p = model.kitting().sections() == 0 ? 0
-                            : (double) model.kitting().skipped() / model.kitting().sections();
-                    csv.row(name, rr, t, model.queue1().area() / t, model.queue2().area() / t, p,
-                            model.queue1().length(), model.queue2().length());
+                    double p = model.sections() == 0 ? 0 : (double) model.skippedSections() / model.sections();
+                    csv.row(name, rr, t, model.area1() / t, model.area2() / t, p, model.content1(),
+                            model.content2());
                 }, STEP);
             }
             System.out.println("перехідний період: " + name);

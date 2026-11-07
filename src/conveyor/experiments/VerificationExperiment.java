@@ -39,10 +39,11 @@ public final class VerificationExperiment {
         Csv csv = new Csv("verification", "id", "what", "n1", "tau1", "n2", "tau2", "T", "K", "q0",
                 "rho1", "rho2", "arr1", "arr1_th", "arr2", "arr2_th", "sections", "sections_th", "filled",
                 "p_skip", "p_th", "mean1", "mean1_th", "mean2", "mean2_th", "max1", "max2", "balance1", "balance2",
-                "little_err", "blocked1", "blocked2");
+                "kits1", "kits2", "blocked1", "blocked2");
         for (Case c : cases) {
             ModelConfig cfg = c.cfg;
-            RunResult r = new Model(cfg).run();
+            Model m = new Model(cfg);
+            RunResult r = m.run();
             double s1 = cfg.supply(1);
             double s2 = cfg.supply(2);
             double cap = cfg.capacity();
@@ -58,7 +59,7 @@ public final class VerificationExperiment {
             csv.row(c.id, c.what, cfg.batch1(), cfg.interval1().notation(), cfg.batch2(), cfg.interval2().notation(),
                     cfg.sectionPeriod().notation(), cfg.kitSize(), cfg.initial1(), cfg.load(1), cfg.load(2),
                     r.arrived1(), s1 * H, r.arrived2(), s2 * H, r.sections(), sectionsTh, r.filled(), r.pSkip(), pTh,
-                    r.mean1(), m1Th, r.mean2(), m2Th, r.max1(), r.max2(), bal1, bal2, r.littleError(), r.blocked1(),
+                    r.mean1(), m1Th, r.mean2(), m2Th, r.max1(), r.max2(), bal1, bal2, m.kits1(), m.kits2(), r.blocked1(),
                     r.blocked2());
             System.out.printf(Locale.ROOT, "%-4s %-34s P=%.4f (теор. >= %.4f) L1=%.1f L2=%.1f баланс %d/%d%n",
                     c.id, c.what, r.pSkip(), pTh, r.mean1(), r.mean2(), bal1, bal2);

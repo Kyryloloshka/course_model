@@ -140,14 +140,6 @@ public final class Special {
         return bisect(x -> fisherCdf(x, d1, d2), p, 0, 1e4);
     }
 
-    public static double chiSquareCdf(double x, double df) {
-        return gammaP(df / 2, x / 2);
-    }
-
-    public static double chiSquareQuantile(double p, double df) {
-        return bisect(x -> chiSquareCdf(x, df), p, 0, 1e4);
-    }
-
     private static double bisect(java.util.function.DoubleUnaryOperator cdf, double p, double lo, double hi) {
         for (int i = 0; i < 200; i++) {
             double mid = (lo + hi) / 2;

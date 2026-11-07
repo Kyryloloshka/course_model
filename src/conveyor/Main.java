@@ -1,9 +1,10 @@
 package conveyor;
 
+import conveyor.experiments.AnalyticExperiment;
 import conveyor.experiments.BufferExperiment;
-import conveyor.experiments.DistributionExperiment;
 import conveyor.experiments.FactorialExperiment;
 import conveyor.experiments.GrowthExperiment;
+import conveyor.experiments.RegressionExperiment;
 import conveyor.experiments.ReplicationsExperiment;
 import conveyor.experiments.StockExperiment;
 import conveyor.experiments.TactExperiment;
@@ -24,15 +25,16 @@ public final class Main {
         Map<String, Runnable> all = new LinkedHashMap<>();
         all.put("trace", TraceExperiment::run);
         all.put("verify", VerificationExperiment::run);
+        all.put("analytic", AnalyticExperiment::run);
         all.put("transient", TransientExperiment::run);
         all.put("growth", GrowthExperiment::run);
         all.put("reps", ReplicationsExperiment::run);
         all.put("variants", VariantsExperiment::run);
         all.put("factorial", FactorialExperiment::run);
+        all.put("regression", RegressionExperiment::run);
         all.put("tact", TactExperiment::run);
         all.put("stock", StockExperiment::run);
         all.put("buffer", BufferExperiment::run);
-        all.put("dist", DistributionExperiment::run);
         List<String> names = args.length == 0 ? List.copyOf(all.keySet()) : List.of(args);
         for (String n : names) {
             Runnable r = all.get(n);
